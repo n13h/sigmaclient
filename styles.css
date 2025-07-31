@@ -1,0 +1,763 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('https://files.catbox.moe/x0jn02.otf') format('opentype');
+    font-display: swap;
+}
+
+body {
+    font-family: 'Minecraft', monospace;
+    background: #000;
+    overflow: hidden;
+    height: 100vh;
+}
+
+/* Custom Cursor Orb */
+.cursor-orb {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.1s ease;
+}
+
+.cursor-orb.clicked {
+    transform: scale(1.2);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Click Anywhere Screen */
+.click-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.click-screen p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Main Content */
+.main-content {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    transition: opacity 0.5s ease;
+}
+
+/* Animated Stars Background */
+.stars-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* Music Control */
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s ease;
+    z-index: 100;
+}
+
+.music-control:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.music-control.paused {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.music-control.playing {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.music-icon {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.music-icon.paused::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid rgba(255, 255, 255, 0.8);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+}
+
+.music-icon.playing::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    width: 3px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 5px 0 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Clients Container */
+.clients-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+/* Search Container */
+.search-container {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 8px 12px;
+    color: #fff;
+    font-family: 'Minecraft', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    width: 300px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.3px;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.search-input:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* YouTube Sidebar */
+.youtube-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: 200px;
+}
+
+.youtube-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.youtube-box:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.youtube-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.youtube-icon {
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.youtube-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.youtube-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.youtube-header {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 11px;
+    letter-spacing: 0.4px;
+    margin-bottom: 5px;
+}
+
+.youtube-thumbnail {
+    width: 120px;
+    height: 68px;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
+    transition: all 0.2s ease;
+}
+
+.youtube-thumbnail:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.02);
+}
+
+.youtube-title {
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    max-width: 300px;
+    line-height: 1.3;
+    margin-bottom: 5px;
+}
+
+.youtube-channel {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 10px;
+    letter-spacing: 0.2px;
+}
+
+.youtube-watch-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 10px;
+    margin-top: 8px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.youtube-watch-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+}
+
+.youtube-error {
+    color: rgba(255, 100, 100, 0.8);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+.clients-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    min-width: 600px;
+}
+
+/* Client Button */
+.client-button {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 15px;
+    text-align: center;
+    transition: background 0.1s ease;
+    position: relative;
+}
+
+.client-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.client-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 8px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 auto 8px auto;
+}
+
+.client-name {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.client-description {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    /* Hide YouTube sidebar and Credits button on mobile */
+    .youtube-sidebar {
+        display: none !important;
+    }
+    
+    .credits-button {
+        display: none !important;
+    }
+    
+    .clients-box {
+        grid-template-columns: 1fr;
+        min-width: 90vw;
+        max-width: 400px;
+        padding: 15px;
+        margin: 0 10px;
+    }
+    
+    .client-button {
+        padding: 12px;
+    }
+    
+    .client-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+    
+    .client-name {
+        font-size: 12px;
+    }
+    
+    .client-description {
+        font-size: 9px;
+    }
+    
+    .download-btn {
+        padding: 5px 10px;
+        font-size: 9px;
+    }
+    
+    .click-screen p {
+        font-size: 14px;
+        padding: 0 20px;
+        text-align: center;
+    }
+    
+    .music-control {
+        bottom: 15px;
+        left: 15px;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .music-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .discord-info {
+        bottom: 15px;
+        right: 15px;
+        font-size: 11px;
+    }
+    
+    .search-input {
+        width: 90vw;
+        max-width: 350px;
+        font-size: 11px;
+        padding: 7px 10px;
+    }
+    
+    .youtube-sidebar {
+        position: fixed;
+        top: auto;
+        bottom: 80px;
+        right: 15px;
+        transform: none;
+        width: 180px;
+    }
+    
+    .youtube-box {
+        padding: 12px;
+    }
+    
+    .youtube-thumbnail {
+        width: 80px;
+        height: 45px;
+    }
+    
+    .youtube-title {
+        font-size: 10px;
+        max-width: 150px;
+    }
+    
+    .youtube-header {
+        font-size: 9px;
+    }
+    
+    .youtube-channel {
+        font-size: 8px;
+    }
+    
+    .youtube-watch-btn {
+        padding: 4px 8px;
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .clients-box {
+        min-width: 95vw;
+        padding: 12px;
+        margin: 0 5px;
+    }
+    
+    .client-button {
+        padding: 10px;
+    }
+    
+    .client-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+    
+    .client-name {
+        font-size: 11px;
+    }
+    
+    .client-description {
+        font-size: 8px;
+    }
+    
+    .download-btn {
+        padding: 4px 8px;
+        font-size: 8px;
+    }
+    
+    .click-screen p {
+        font-size: 12px;
+    }
+    
+    .music-control {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .music-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .discord-info {
+        font-size: 10px;
+    }
+    
+    .credits-button {
+        top: 15px;
+        right: 15px;
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+    
+    .credits-container {
+        width: 95vw;
+        max-height: 85vh;
+    }
+    
+    .credits-header h2 {
+        font-size: 18px;
+    }
+    
+    .back-button {
+        padding: 5px 10px;
+        font-size: 10px;
+    }
+    
+    .credits-content {
+        padding: 15px;
+    }
+    
+    .credits-section h3 {
+        font-size: 14px;
+    }
+    
+    .credit-name {
+        font-size: 11px;
+    }
+    
+    .credit-role {
+        font-size: 9px;
+    }
+}
+
+/* Touch-friendly interactions for mobile */
+@media (hover: none) and (pointer: coarse) {
+    * {
+        cursor: auto;
+    }
+    
+    .cursor-orb {
+        display: none;
+    }
+    
+    .client-button:active {
+        background: rgba(255, 255, 255, 0.12);
+        transform: scale(0.98);
+    }
+    
+    .download-btn:active {
+        background: rgba(255, 255, 255, 0.25);
+        transform: scale(0.95);
+    }
+    
+    .music-control:active {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(0.95);
+    }
+}/* Download Button */
+.download-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 10px;
+    margin-top: 8px;
+    cursor: none;
+    transition: background 0.1s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.download-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.download-btn:active {
+    background: rgba(255, 255, 255, 0.15);
+}/* Discord Info */
+.discord-info {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    z-index: 100;
+}
+
+/* Credits Button */
+.credits-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 8px 16px;
+    color: #fff;
+    font-family: 'Minecraft', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    z-index: 100;
+}
+
+.credits-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.credits-button:active {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(0);
+}
+
+/* Credits Container */
+.credits-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 90vw;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.credits-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.credits-header h2 {
+    color: #fff;
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.back-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    padding: 6px 12px;
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(-2px);
+}
+
+.credits-content {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 25px;
+}
+
+.credits-section {
+    margin-bottom: 30px;
+}
+
+.credits-section:last-child {
+    margin-bottom: 0;
+}
+
+.credits-section h3 {
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.credits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.credit-item {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    padding: 12px 15px;
+    transition: all 0.2s ease;
+}
+
+.credit-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(3px);
+}
+
+.credit-name {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+}
+
+.credit-role {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    letter-spacing: 0.2px;
+    line-height: 1.3;
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:3</title>
+    <meta property="og:title" content="Cum Archive">
+    <meta property="og:description" content="Minecraft clients and more">
+    <meta property="og:image" content="https://sigmaclient.fun/rat.png">
+    <meta property="og:url" content="https://sigmaclient.fun">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#7289da">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cursor-orb"></div>
+
+    <div id="clickScreen" class="click-screen">
+        <p>Click anywhere to enter</p>
+    </div>
+
+    <div id="mainContent" class="main-content hidden">
+        <div class="stars-container"></div>
+
+        <div class="music-control">
+            <div class="music-icon paused"></div>
+        </div>
+
+        <div class="discord-info">Discord: fullhook</div>
+
+        <div class="credits-button" id="creditsBtn">Credits</div>
+
+        <div class="youtube-sidebar" id="youtubeSidebar">
+            <div class="youtube-box" id="youtubeBox">
+                <div class="youtube-loading">
+                    <div class="youtube-icon">▶</div>
+                    <div class="youtube-text">Loading latest video...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clients-container" id="clientsContainer">
+            <div class="search-container">
+                <input type="text" id="clientSearch" class="search-input" placeholder="Search clients...">
+            </div>
+
+            <div class="clients-box">
+                <div class="client-button"
+                    data-download-url="https://www.mediafire.com/file/4k8d72fgm3uzd3y/Exhibition.zip/file">
+                    <div class="client-icon">E</div>
+                    <div class="client-name">Exhibition</div>
+                    <div class="client-description">Decent HvH client</div>
+                    <button class="download-btn">Download</button>
+                </div>
+
+                <div class="client-button"
+                    data-download-url="https://www.mediafire.com/file/kvj4ocp3887qkqr/Zeroday+b22.2.zip/file">
+                    <div class="client-icon">Z</div>
+                    <div class="client-name">ZeroDay b22.2</div>
+                    <div class="client-description">Great visuals and bypasses</div>
+                    <button class="download-btn">Download</button>
+                </div>
+
+                <div class="client-button"
+                    data-download-url="https://www.mediafire.com/file/fp56vg856i15kwc/TenacityReborn.zip/file">
+                    <div class="client-icon">T</div>
+                    <div class="client-name">Tenacity Reborn</div>
+                    <div class="client-description">I like this a lot</div>
+                    <button class="download-btn">Download</button>
+                </div>
+
+                <div class="client-button" data-download-url="https://github.com/Sigma-Skidder-Team/SigmaRebase">
+                    <div class="client-icon">S</div>
+                    <div class="client-name">Sigma Rebase</div>
+                    <div class="client-description">God bypass $</div>
+                    <button class="download-btn">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="credits-container hidden" id="creditsContainer">
+        <div class="credits-header">
+            <h2>Credits</h2>
+            <div class="back-button" id="backBtn">← Back</div>
+        </div>
+        <div class="credits-content">
+            <div class="credits-section">
+                <h3>Contributors</h3>
+                <div class="credits-list">
+                    <div class="credit-item">
+                        <div class="credit-name">fullhook</div>
+                        <div class="credit-role">Main Developer & Site Creator</div>
+                    </div>
+                    <div class="credit-item">
+                        <div class="credit-name">Luna (or Purrcodos)</div>
+                        <div class="credit-role">Helped me with ZeroDay libraries etc</div>
+                    </div>
+                    <div class="credit-item">
+                        <div class="credit-name">Lywoh</div>
+                        <div class="credit-role">Gave me retarded ideas</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
